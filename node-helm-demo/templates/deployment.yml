@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "node-helm-demo.fullname" . }}
+  labels:
+{{ include "node-helm-demo.labels" . | indent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "node-helm-demo.name" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "node-helm-demo.name" . }}
+    spec:
+        containers:
+        - name: {{ .Values.containerName }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+          -  containerPort: 3000
+        imagePullSecrets:
+        - name: {{ .Values.imagePullSecrets.name }}
