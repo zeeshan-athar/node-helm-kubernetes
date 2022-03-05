@@ -1,17 +1,17 @@
 Node Express application deployment to kubernetes cluster using helm.
 Steps to follow
 1) Create image using dockerfile and upload to dockerhub.
-# docker build -n 03314839765/node:latest .
-# docker login
-# docker push 03314839765/node:latest
+docker build -n 03314839765/node-express:latest .
+docker login
+docker push 03314839765/node:latest
 2) Create EKS cluster using terraform scripts in folder 'terraform-eks'.
-# cd terraform-eks/
-# aws configure
-# terraform init
-# terraform apply
+cd terraform-eks/
+aws configure
+terraform init
+terraform apply
 3) Change image name in node-helm-demo/values.yaml as name of image in your dockerhub.
 4) Deploy helm chart to that cluster.
-# helm install node-helm-demo/ --generate-name
+helm install node-helm-demo/ --generate-name
 
 Following packages should be installed before starting this task. This installation is based on ubuntu 20.04.
 ......Helm Installation..........
